@@ -1,0 +1,31 @@
+pipeline{
+    
+agent any
+stages('CI CD Pipeline'){
+  stage('Preparation'){
+    steps{
+        script{
+            echo "Preparation stage"
+            git credentialsId: 'GitHubCreds', url: 'https://github.com/AbhinavLondhe8515/jen4/'
+        }
+    }
+  }
+  stage('Build '){
+    steps{
+        script{
+            echo "Build stage"
+            sh 'java  hello.java'
+        }
+    }  
+  }
+  stage('Test'){
+    steps{
+        script{
+            echo "Test stage"
+            emailext body: 'Build #  has done', subject: 'jenkins update', to: 'londheabhinav87@gmail.com '
+
+        }
+    }  
+  }
+}
+}
